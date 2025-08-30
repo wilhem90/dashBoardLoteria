@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(authToken);
     if (authToken === "Bearer ") {
       document.getElementsByClassName(".container").display = "none";
-      window.location.href = "login.html"; // Em uma aplicação real
+      window.location.href = "index.html"; // Em uma aplicação real
     }
   }, 1000);
 
