@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema Completo de Loteria</title>
+    <link rel="stylesheet" href="./login.css" />
+  </head>
+  <body>
+    <div class="login-container">
+      <div class="login-header">
+        <h1>Sistema de Loteria</h1>
+        <p>Faça login para acessar o sistema</p>
+      </div>
+
+      <form class="login-form" id="loginForm">
+        <div class="form-group">
+          <label for="email">E-mail</label>
+          <input
+            type="email"
+            id="email"
+            placeholder="Seu e-mail"
+            required
+            value=""
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="password">Senha</label>
+          <div class="password-container">
+            <input
+              type="password"
+              id="password"
+              placeholder="Sua senha"
+              required
+              value=""
+            />
+            <button type="button" class="toggle-password" id="togglePassword">
+              👁️
+            </button>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <label for="durationToken">Duração do Token</label>
+          <select id="durationToken" class="form-control">
+            <option value="1h">1 hora</option>
+            <option value="1d">1 dia</option>
+            <option value="7d">7 dias</option>
+            <option value="30d" selected>30 dias</option>
+          </select>
+        </div>
+
+        <button type="submit" id="loginBtn" class="btn">
+          <span id="btnText">Entrar</span>
+          <span id="btnLoading" class="loading" style="display: none"></span>
+        </button>
+
+        <div class="response-container" id="responseMessage"></div>
+        <div class="footer-links">
+          <a href="#" id="forgotPassword">Esqueci minha senha</a>
+        </div>
+      </form>
+
+    </div>
+    
+    <div class="container">
+      <header>
+        <h1>Sistema Completo de Loteria</h1>
+        <p>Registre números vencedores e consulte tickets gerenciados</p>
+      </header>
+
+      <div class="tabs">
+        <div class="tab active" data-tab="register">Registrar Ganhadores</div>
+        <div class="tab" data-tab="consult">Consultar Tickets</div>
+      </div>
+
+      <div class="tab-content active" id="register-tab">
+        <div class="card">
+          <h2 class="card-title">Registrar Números Vencedores</h2>
+
+          <div class="form-group">
+            <label for="dateSelected">Data do Sorteio:</label>
+            <input type="date" id="dateSelected" required />
+          </div>
+
+          <div class="form-group">
+            <label for="lotterySelected">Loteria:</label>
+            <select id="lotterySelected" required>
+              <option value="georgia">Georgia</option>
+              <option value="florida">Florida</option>
+              <option value="newyork">New York</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="periodTime">Período:</label>
+            <select id="periodTime" required>
+              <option value="morning">Manhã</option>
+              <option value="afternoon" selected>Tarde</option>
+              <option value="evening">Noite</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Números Vencedores:</label>
+            <div class="winners-input">
+              <div>
+                <label for="lo1">1º Prêmio (LO1):</label>
+                <input type="number" id="lo1" min="0" max="999" required />
+              </div>
+              <div>
+                <label for="lo2">2º Prêmio (LO2):</label>
+                <input type="number" id="lo2" min="0" max="999" required />
+              </div>
+              <div>
+                <label for="lo3">3º Prêmio (LO3):</label>
+                <input type="number" id="lo3" min="0" max="999" required />
+              </div>
+            </div>
+          </div>
+
+          <button id="registerWinners" class="btn btn-success">
+            Registrar Números Vencedores
+          </button>
+
+          <div class="response-container" id="registerResponse">
+            <h3 class="response-title">Resposta da API:</h3>
+            <pre id="registerResult">Aguardando ação...</pre>
+          </div>
+        </div>
+      </div>
+    <script src="./login.js"></script>
+  </body>
+</html>

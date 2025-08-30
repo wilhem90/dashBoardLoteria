@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sistema Completo de Loteria</title>
+    <link rel="stylesheet" href="./sistema.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <h1>Sistema Completo de Loteria</h1>
+        <p>Registre números vencedores e consulte tickets gerenciados</p>
+      </header>
+
+      <div class="tabs">
+        <div class="tab active" data-tab="register">Registrar Ganhadores</div>
+        <div class="tab" data-tab="consult">Consultar Tickets</div>
+      </div>
+
+      <div class="tab-content active" id="register-tab">
+        <div class="card">
+          <h2 class="card-title">Registrar Números Vencedores</h2>
+
+          <div class="form-group">
+            <label for="dateSelected">Data do Sorteio:</label>
+            <input type="date" id="dateSelected" required />
+          </div>
+
+          <div class="form-group">
+            <label for="lotterySelected">Loteria:</label>
+            <select id="lotterySelected" required>
+              <option value="georgia">Georgia</option>
+              <option value="florida">Florida</option>
+              <option value="newyork">New York</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="periodTime">Período:</label>
+            <select id="periodTime" required>
+              <option value="morning">Manhã</option>
+              <option value="afternoon" selected>Tarde</option>
+              <option value="evening">Noite</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>Números Vencedores:</label>
+            <div class="winners-input">
+              <div>
+                <label for="lo1">1º Prêmio (LO1):</label>
+                <input type="number" id="lo1" min="0" max="999" required />
+              </div>
+              <div>
+                <label for="lo2">2º Prêmio (LO2):</label>
+                <input type="number" id="lo2" min="0" max="999" required />
+              </div>
+              <div>
+                <label for="lo3">3º Prêmio (LO3):</label>
+                <input type="number" id="lo3" min="0" max="999" required />
+              </div>
+            </div>
+          </div>
+
+          <button id="registerWinners" class="btn btn-success">
+            Registrar Números Vencedores
+          </button>
+
+          <div class="response-container" id="registerResponse">
+            <h3 class="response-title">Resposta da API:</h3>
+            <pre id="registerResult">Aguardando ação...</pre>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-content" id="consult-tab">
+        <div class="card">
+          <h2 class="card-title">Filtros de Consulta</h2>
+
+          <div class="filters">
+            <div class="form-group">
+              <label for="startDate">Data Inicial:</label>
+              <input type="date" id="startDate" required />
+            </div>
+
+            <div class="form-group">
+              <label for="lotteryFilter">Loteria:</label>
+              <select id="lotteryFilter">
+                <option value="">Todas</option>
+                <option value="georgia">Georgia</option>
+                <option value="florida">Florida</option>
+                <option value="newyork">New York</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="periodFilter">Período:</label>
+              <select id="periodFilter">
+                <option value="">Todos</option>
+                <option value="morning">Manhã</option>
+                <option value="afternoon">Tarde</option>
+                <option value="evening">Noite</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label for="emailSearch">Buscar Email:</label>
+              <input
+                type="text"
+                id="emailSearch"
+                placeholder="Digite para filtrar emails"
+              />
+              <div class="email-filter" id="emailFilter">
+                <div class="loading">Carregando emails...</div>
+              </div>
+            </div>
+          </div>
+
+          <button id="fetchTickets" class="btn">Buscar Tickets</button>
+          <button id="resetFilters" class="btn btn-danger">
+            Limpar Filtros
+          </button>
+        </div>
+
+        <div class="summary-cards">
+          <div class="summary-card sales">
+            <h3>Vendas Totais</h3>
+            <div class="value" id="totalSales">R$ 0,00</div>
+          </div>
+
+          <div class="summary-card pending">
+            <h3>Total a Pagar</h3>
+            <div class="value" id="totalPending">R$ 0,00</div>
+          </div>
+
+          <div class="summary-card paid">
+            <h3>Total Pago</h3>
+            <div class="value" id="totalPaid">R$ 0,00</div>
+          </div>
+        </div>
+
+        <div class="card">
+          <h2 class="card-title">Tickets</h2>
+
+          <div id="ticketsTableContainer">
+            <table id="ticketsTable">
+              <thead>
+                <tr>
+                  <th data-sort="idTicket">ID Ticket</th>
+                  <th data-sort="createdAt">Data</th>
+                  <th data-sort="emailUser">Email do Usuário</th>
+                  <th data-sort="totalTicket">Total do Ticket</th>
+                  <th data-sort="toPay">Valor a Pagar</th>
+                  <th data-sort="status">Status</th>
+                  <th data-sort="lotterySelected">Loteria</th>
+                </tr>
+              </thead>
+              <tbody id="ticketsBody">
+                <tr>
+                  <td colspan="7" class="loading">
+                    Use os filtros e clique em "Buscar Tickets" para carregar os
+                    dados
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="pagination" id="pagination">
+            <button id="prevPage" disabled>Anterior</button>
+            <span id="pageInfo">Página 1 de 1</span>
+            <button id="nextPage" disabled>Próxima</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="./sistema.js"></script>
+  </body>
+</html>
