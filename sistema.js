@@ -109,6 +109,10 @@ document.addEventListener("DOMContentLoaded", () => {
         document.getElementById("lo1").value = "";
         document.getElementById("lo2").value = "";
         document.getElementById("lo3").value = "";
+      }else {
+        if (data.message === "Token inválido."){
+          window.location.href = "index.html";
+        }
       }
     } catch (error) {
       registerResult.textContent = `Erro: ${error.message}`;
