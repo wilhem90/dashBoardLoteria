@@ -28,7 +28,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log(authToken);
     if (authToken === "Bearer ") {
       document.getElementsByClassName(".container").display = "none";
-      window.location.href = "index.html"; // Em uma aplicação real
+      window.location.href = "index.html";
     }
   }, 1000);
 
@@ -148,10 +148,14 @@ document.addEventListener("DOMContentLoaded", () => {
 
         applyFilters();
       } else {
-        ticketsBody.innerHTML =
+        if (data.message === "Token inválido."){
+          window.location.href = "index.html";
+        }else {
+          ticketsBody.innerHTML =
           '<tr><td colspan="7" class="loading">Erro ao carregar tickets: ' +
           (data.message || "Resposta inválida da API") +
           "</td></tr>";
+        }
       }
     } catch (error) {
       ticketsBody.innerHTML =
