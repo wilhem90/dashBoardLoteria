@@ -235,6 +235,11 @@ pre {
   text-align: center;
 }
 
+#allValues {
+  margin: 20px 0;
+  width: 80%;
+}
+
 .summary-card h3 {
   font-size: 1.2rem;
   margin-bottom: 10px;

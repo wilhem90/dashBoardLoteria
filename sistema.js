@@ -18,6 +18,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const pageInfoElement = document.getElementById("pageInfo");
   const emailFilterContainer = document.getElementById("emailFilter");
   const emailSearch = document.getElementById("emailSearch");
+  const textareaValues = document.getElementById("allValues");
+
 
   // Token de autorização
   const user = localStorage.getItem("userData");
@@ -169,10 +171,18 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 
+  const valuesOfUser = {};
+  function completeTextArea(values) {
+    Object.keys(values).forEach((key) => {
+      valuesOfUser[key] = values[key] + (valuesOfUser[key] || 0);
+    });
+  }
+
   // Extrair emails únicos dos tickets
   function extractUniqueEmails() {
     const emailSet = new Set();
     allTickets.forEach((ticket) => {
+      completeTextArea(ticket?.values || {});
       if (ticket.emailUser) {
         emailSet.add(ticket.emailUser);
       }
@@ -184,6 +194,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Renderizar filtro de emails
   function renderEmailFilter() {
+    textareaValues.value = JSON.stringify(valuesOfUser, null, 2);
     const searchTerm = emailSearch.value.toLowerCase();
     const filteredEmails = allEmails.filter((email) =>
       email.toLowerCase().includes(searchTerm)
